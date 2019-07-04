@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 puts 'Введите имя файла'
 file_name = gets.chomp
-
 list_team = {}
-
 fil_rd = File.open(file_name)
 
 fil_rd.each do |line|
@@ -14,18 +14,17 @@ fil_rd.each do |line|
   res2 = tmp2.pop.to_i
   case res1 <=> res2
   when -1
-    list_team.key?(tmp1.join) ? list_team[tmp1.join] += 0 : list_team[tmp1.join] = 0
-    list_team.key?(tmp2.join) ? list_team[tmp2.join] += 3 : list_team[tmp2.join] = 3
+    list_team.key?(tmp1.join(' ')) ? list_team[tmp1.join(' ')] += 0 : list_team[tmp1.join(' ')] = 0
+    list_team.key?(tmp2.join(' ')) ? list_team[tmp2.join(' ')] += 3 : list_team[tmp2.join(' ')] = 3
   when 0
-    list_team.key?(tmp1.join) ? list_team[tmp1.join] += 1 : list_team[tmp1.join] = 1
-    list_team.key?(tmp2.join) ? list_team[tmp2.join] += 1 : list_team[tmp2.join] = 1
+    list_team.key?(tmp1.join(' ')) ? list_team[tmp1.join(' ')] += 1 : list_team[tmp1.join(' ')] = 1
+    list_team.key?(tmp2.join(' ')) ? list_team[tmp2.join(' ')] += 1 : list_team[tmp2.join(' ')] = 1
   when 1
-    list_team.key?(tmp1.join) ? list_team[tmp1.join] += 3 : list_team[tmp1.join] = 3
-    list_team.key?(tmp2.join) ? list_team[tmp2.join] += 0 : list_team[tmp2.join] = 0
+    list_team.key?(tmp1.join(' ')) ? list_team[tmp1.join(' ')] += 3 : list_team[tmp1.join(' ')] = 3
+    list_team.key?(tmp2.join(' ')) ? list_team[tmp2.join(' ')] += 0 : list_team[tmp2.join(' ')] = 0
   end
-
 end
-list_team = list_team.sort_by{|k, v| [-v, k]}
+list_team = list_team.sort_by { |k, v| [-v, k] }
 index = 0
 list_team.each do |k, v|
   index += 1
