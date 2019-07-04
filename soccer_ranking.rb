@@ -75,8 +75,9 @@ module SoccerModule
     def print_table
       index = 0
       list_team.each do |k, v|
-        index += 1
-        puts index.to_s + '.' + k.to_s + ' ' + v.to_s + ' pts'
+        message = index.to_s + '.' + k.to_s + ' ' + v.to_s + ' pt'
+        message += 's' if v != 1
+        puts message
       end
     end
   end
