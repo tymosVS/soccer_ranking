@@ -69,10 +69,10 @@ module SoccerModule
         compare_result = current_res[1] <=> current_res[3]
         prepare_result(compare_result, current_res[0], current_res[2])
       end
+      sort_by_ranking
     end
 
     def print_table
-      sort_by_ranking
       index = 0
       list_team.each do |k, v|
         index += 1
