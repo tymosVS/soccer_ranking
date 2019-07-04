@@ -2,6 +2,7 @@
 
 # run preparing file
 module RunModule
+
   require './soccer_ranking'
   def self.run
     sm = SoccerModule::SoccerRanking.new
