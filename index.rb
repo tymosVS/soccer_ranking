@@ -3,8 +3,9 @@
 require './soccer_ranking'
 require 'thor'
 
-class MyCLI < Thor
-  desc "prepare 'filename'", "run prepare file and print results"
+# run app from CLI
+class SoccerCLI < Thor
+  desc 'prepare FILENAME', 'run handling file and print results'
   def prepare(filename)
     sm = SoccerModule::SoccerRanking.new
     ARGV.size.positive? ? sm.file_name = filename : sm.filename
@@ -13,4 +14,4 @@ class MyCLI < Thor
   end
 end
 
-MyCLI.start(ARGV)
+SoccerCLI.start(ARGV)
