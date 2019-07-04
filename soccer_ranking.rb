@@ -24,6 +24,10 @@ module SoccerModule
       @list_team = @list_team.sort_by { |k, v| [-v, k] }
     end
 
+    @insert_result = lambda do |team, value|
+      @list_team.key?(team) ? @list_team[team] += value : @list_team[team] = value
+    end
+
     def prepare_result(res_compare, team1, team2)
       case res_compare
       when -1
@@ -63,7 +67,3 @@ module SoccerModule
     end
   end
 end
-
-sm = SoccerModule::SoccerRanking.new
-sm.read_file
-sm.print_table
