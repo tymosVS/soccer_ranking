@@ -2,44 +2,62 @@
 
 # module for prepare file witch match results
 module SoccerModule
+  # class for prepare results
   class SoccerRanking
     attr_accessor :file_name, :list_team, :file
     def initialize
       @list_team = {}
     end
 
-    private
-
     def filename
       puts 'Введите имя файла'
       @file_name = gets.chomp
-      @file_name
     end
 
+    private
+
     def open_file
-      @file = File.open(filename)
+      @file = File.open(@file_name)
     end
 
     def sort_by_ranking
       @list_team = @list_team.sort_by { |k, v| [-v, k] }
     end
 
-    @insert_result = lambda do |team, value|
-      @list_team.key?(team) ? @list_team[team] += value : @list_team[team] = value
+    def insert_team_result(team, value)
+      if @list_team.key?(team)
+        @list_team[team] += value
+      else
+        @list_team[team] = value
+      end
+    end
+
+    def insert_match_result(team, value, team1, value1)
+      insert_team_result(team, value)
+      insert_team_result(team1, value1)
     end
 
     def prepare_result(res_compare, team1, team2)
       case res_compare
       when -1
-        @list_team.key?(team1) ? @list_team[team1] += 0 : @list_team[team1] = 0
-        @list_team.key?(team2) ? @list_team[team2] += 3 : @list_team[team2] = 3
+        insert_match_result(team1, 0, team2, 3)
       when 0
-        @list_team.key?(team1) ? @list_team[team1] += 1 : @list_team[team1] = 1
-        @list_team.key?(team2) ? @list_team[team2] += 1 : @list_team[team2] = 1
+        insert_match_result(team1, 1, team2, 1)
       when 1
-        @list_team.key?(team1) ? @list_team[team1] += 3 : @list_team[team1] = 3
-        @list_team.key?(team2) ? @list_team[team2] += 0 : @list_team[team2] = 0
+        insert_match_result(team1, 3, team2, 0)
       end
+    end
+
+    def prepare_read_line(line)
+      line.strip!
+      current_math = line.split(',') if line
+      team1 = current_math[0].split(' ')
+      team2 = current_math[1].split(' ')
+      res1 = team1.pop.to_i
+      res2 = team2.pop.to_i
+      team1_name = team1.join(' ')
+      team2_name = team2.join(' ')
+      [team1_name, res1, team2_name, res2]
     end
 
     public
@@ -47,13 +65,9 @@ module SoccerModule
     def read_file
       open_file
       @file.each do |line|
-        line.strip!
-        tmp = line.split(',') if line
-        tmp1 = tmp[0].split(' ')
-        tmp2 = tmp[1].split(' ')
-        res1 = tmp1.pop.to_i
-        res2 = tmp2.pop.to_i
-        prepare_result(res1 <=> res2, tmp1.join(' '), tmp2.join(' '))
+        current_res = prepare_read_line(line)
+        compare_result = current_res[1] <=> current_res[3]
+        prepare_result(compare_result, current_res[0], current_res[2])
       end
     end
 
