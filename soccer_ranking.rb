@@ -70,6 +70,17 @@ module SoccerModule
         prepare_result(compare_result, current_res[0], current_res[2])
       end
       sort_by_ranking
+      write_file
+    end
+
+    def write_file
+      File.open('out.txt', 'w') do |file|
+        index = 0
+        list_team.each do |k, v|
+          index += 1
+          file.puts( index.to_s + '.' + k.to_s + ' ' + v.to_s + ' pts')
+        end
+      end
     end
 
     def print_table

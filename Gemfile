@@ -3,3 +3,4 @@
 source 'https://rubygems.org'
 
 gem 'rubocop', '~> 0.72.0', require: false
+gem 'thor'
