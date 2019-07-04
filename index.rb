@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-# run preparing file
-module RunModule
+require './soccer_ranking'
+require 'thor'
 
-  require './soccer_ranking'
-  def self.run
+# run app from CLI
+class SoccerCLI < Thor
+  desc 'prepare FILENAME', 'run handling file and print results'
+  def prepare(filename)
     sm = SoccerModule::SoccerRanking.new
-    ARGV.size.positive? ? sm.file_name = ARGV[0] : sm.filename
+    ARGV.size.positive? ? sm.file_name = filename : sm.filename
     sm.read_file
     sm.print_table
   end
 end
 
-RunModule.run
+SoccerCLI.start(ARGV)
