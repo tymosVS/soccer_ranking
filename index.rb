@@ -8,7 +8,7 @@ class SoccerCLI < Thor
   desc 'prepare FILENAME', 'run handling file and print results'
   def prepare(filename)
     sm = SoccerModule::SoccerRanking.new
-    ARGV.size.positive? ? sm.file_name = filename : sm.filename
+    sm.file_name = filename
     sm.read_file
     sm.print_table
   end

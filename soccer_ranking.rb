@@ -9,11 +9,6 @@ module SoccerModule
       @list_team = {}
     end
 
-    def filename
-      puts 'Введите имя файла'
-      @file_name = gets.chomp
-    end
-
     private
 
     def open_file
